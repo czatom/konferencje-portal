@@ -197,14 +197,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConferencesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603230902122_InitialCreate.cs" />
+    <Compile Include="Migrations\201603230902122_InitialCreate.Designer.cs">
+      <DependentUpon>201603230902122_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603240808282_Initial.cs" />
+    <Compile Include="Migrations\201603240808282_Initial.Designer.cs">
+      <DependentUpon>201603240808282_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Author.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Conference.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Publication.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Reviewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -270,6 +285,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Conferences\Create.cshtml" />
+    <Content Include="Views\Conferences\Delete.cshtml" />
+    <Content Include="Views\Conferences\Details.cshtml" />
+    <Content Include="Views\Conferences\Edit.cshtml" />
+    <Content Include="Views\Conferences\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +304,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603230902122_InitialCreate.resx">
+      <DependentUpon>201603230902122_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603240808282_Initial.resx">
+      <DependentUpon>201603240808282_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

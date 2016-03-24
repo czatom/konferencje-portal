@@ -29,5 +29,7 @@ namespace Konferencja.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Konferencja.Models.Conference> Conferences { get; set; }
     }
 }
