@@ -151,12 +151,23 @@ namespace Konferencja.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.Address = model.Address;
+                user.City = model.City;
+                user.PostalCode = model.PostalCode;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     //Default role
-                    await UserManager.AddToRoleAsync(user.Id, "Author");
+                    await UserManager.AddToRoleAsync(user.Id, "canPublish");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

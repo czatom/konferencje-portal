@@ -10,112 +10,116 @@ using Konferencja.Models;
 
 namespace Konferencja.Controllers
 {
-    public class ConferencesController : Controller
+    public class ReviewsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Conferences
+        // GET: Reviews
         public ActionResult Index()
         {
-            return View(db.Conferences.ToList());
+            var reviews = db.Reviews.Include(r => r.Publication).Include(r => r.Reviewer);
+            return View(reviews.ToList());
         }
 
-        // GET: Conferences/Details/5
+        // GET: Reviews/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conference conference = db.Conferences.Find(id);
-            if (conference == null)
+            Review review = db.Reviews.Find(id);
+            if (review == null)
             {
                 return HttpNotFound();
             }
-            return View(conference);
+            return View(review);
         }
 
-        // GET: Conferences/Create
-        [Authorize(Roles = "canEdit")]
+        // GET: Reviews/Create
         public ActionResult Create()
         {
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title");
+            ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "Name");
             return View();
         }
 
-        // POST: Conferences/Create
+        // POST: Reviews/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Date,Theme")] Conference conference)
+        public ActionResult Create([Bind(Include = "ID,Grade,ReviewerID,PublicationID")] Review review)
         {
             if (ModelState.IsValid)
             {
-                db.Conferences.Add(conference);
+                db.Reviews.Add(review);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(conference);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
+            ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "Name", review.ReviewerID);
+            return View(review);
         }
 
-        // GET: Conferences/Edit/5
-        [Authorize(Roles = "canEdit")]
+        // GET: Reviews/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conference conference = db.Conferences.Find(id);
-            if (conference == null)
+            Review review = db.Reviews.Find(id);
+            if (review == null)
             {
                 return HttpNotFound();
             }
-            return View(conference);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
+            ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "Name", review.ReviewerID);
+            return View(review);
         }
 
-        // POST: Conferences/Edit/5
+        // POST: Reviews/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canEdit")]
-        public ActionResult Edit([Bind(Include = "ID,Date,Theme")] Conference conference)
+        public ActionResult Edit([Bind(Include = "ID,Grade,ReviewerID,PublicationID")] Review review)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(conference).State = EntityState.Modified;
+                db.Entry(review).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(conference);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
+            ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "Name", review.ReviewerID);
+            return View(review);
         }
 
-        // GET: Conferences/Delete/5
-        [Authorize(Roles = "canEdit")]
+        // GET: Reviews/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conference conference = db.Conferences.Find(id);
-            if (conference == null)
+            Review review = db.Reviews.Find(id);
+            if (review == null)
             {
                 return HttpNotFound();
             }
-            return View(conference);
+            return View(review);
         }
 
-        // POST: Conferences/Delete/5
-        [Authorize(Roles = "canEdit")]
+        // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Conference conference = db.Conferences.Find(id);
-            db.Conferences.Remove(conference);
+            Review review = db.Reviews.Find(id);
+            db.Reviews.Remove(review);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

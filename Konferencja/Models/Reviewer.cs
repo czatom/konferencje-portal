@@ -12,10 +12,12 @@ namespace Konferencja.Models
         public int ID { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        [StringLength(50, ErrorMessage = "Imię nie może być dłuższe niż 50 znaków.")]
+        [Display(Name = "Imię")]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
         public string Specialisation { get; set; }
@@ -26,7 +28,7 @@ namespace Konferencja.Models
         public string Email { get; set; }
 
 
-        [Display(Name = "Full Name")]
+        [Display(Name = "Imię i nazwisko")]
         public string FullName
         {
             get
@@ -35,8 +37,13 @@ namespace Konferencja.Models
             }
         }
 
-        public int? ApplicationUserID { get; set; }
+        [Display(Name = "ID użytkownika")]
+        public string ApplicationUserId { get; set; }
 
+        [Display(Name = "Użytkownik")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [Display(Name = "Recenzje")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

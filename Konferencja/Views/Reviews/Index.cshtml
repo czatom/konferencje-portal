@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Konferencja.Models.Conference>
+﻿@model IEnumerable<Konferencja.Models.Review>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.Publication.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Theme)
+            @Html.DisplayNameFor(model => model.Reviewer.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grade)
         </th>
         <th></th>
     </tr>
@@ -23,10 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            @Html.DisplayFor(modelItem => item.Publication.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Theme)
+            @Html.DisplayFor(modelItem => item.Reviewer.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grade)
         </td>
         <td>
             @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |

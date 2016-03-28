@@ -200,20 +200,18 @@
     <Compile Include="Controllers\ConferencesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PublicationsController.cs" />
+    <Compile Include="Controllers\ReviewersController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603230902122_InitialCreate.cs" />
-    <Compile Include="Migrations\201603230902122_InitialCreate.Designer.cs">
-      <DependentUpon>201603230902122_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603240808282_Initial.cs" />
-    <Compile Include="Migrations\201603240808282_Initial.Designer.cs">
-      <DependentUpon>201603240808282_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201603281242022_Init.cs" />
+    <Compile Include="Migrations\201603281242022_Init.Designer.cs">
+      <DependentUpon>201603281242022_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Author.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Conference.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -290,6 +288,22 @@
     <Content Include="Views\Conferences\Details.cshtml" />
     <Content Include="Views\Conferences\Edit.cshtml" />
     <Content Include="Views\Conferences\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PublicationTemplate.cshtml" />
+    <Content Include="Views\Publications\Create.cshtml" />
+    <Content Include="Views\Publications\Delete.cshtml" />
+    <Content Include="Views\Publications\Details.cshtml" />
+    <Content Include="Views\Publications\Edit.cshtml" />
+    <Content Include="Views\Publications\Index.cshtml" />
+    <Content Include="Views\Reviewers\Create.cshtml" />
+    <Content Include="Views\Reviewers\Delete.cshtml" />
+    <Content Include="Views\Reviewers\Details.cshtml" />
+    <Content Include="Views\Reviewers\Edit.cshtml" />
+    <Content Include="Views\Reviewers\Index.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,11 +320,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603230902122_InitialCreate.resx">
-      <DependentUpon>201603230902122_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603240808282_Initial.resx">
-      <DependentUpon>201603240808282_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603281242022_Init.resx">
+      <DependentUpon>201603281242022_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

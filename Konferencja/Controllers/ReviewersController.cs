@@ -10,112 +10,107 @@ using Konferencja.Models;
 
 namespace Konferencja.Controllers
 {
-    public class ConferencesController : Controller
+    public class ReviewersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Conferences
+        // GET: Reviewers
         public ActionResult Index()
         {
-            return View(db.Conferences.ToList());
+            return View(db.Reviewers.ToList());
         }
 
-        // GET: Conferences/Details/5
+        // GET: Reviewers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conference conference = db.Conferences.Find(id);
-            if (conference == null)
+            Reviewer reviewer = db.Reviewers.Find(id);
+            if (reviewer == null)
             {
                 return HttpNotFound();
             }
-            return View(conference);
+            return View(reviewer);
         }
 
-        // GET: Conferences/Create
-        [Authorize(Roles = "canEdit")]
+        // GET: Reviewers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Conferences/Create
+        // POST: Reviewers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Date,Theme")] Conference conference)
+        public ActionResult Create([Bind(Include = "ID,Name,Surname,Specialisation,Email,ApplicationUserId")] Reviewer reviewer)
         {
             if (ModelState.IsValid)
             {
-                db.Conferences.Add(conference);
+                db.Reviewers.Add(reviewer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(conference);
+            return View(reviewer);
         }
 
-        // GET: Conferences/Edit/5
-        [Authorize(Roles = "canEdit")]
+        // GET: Reviewers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conference conference = db.Conferences.Find(id);
-            if (conference == null)
+            Reviewer reviewer = db.Reviewers.Find(id);
+            if (reviewer == null)
             {
                 return HttpNotFound();
             }
-            return View(conference);
+            return View(reviewer);
         }
 
-        // POST: Conferences/Edit/5
+        // POST: Reviewers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canEdit")]
-        public ActionResult Edit([Bind(Include = "ID,Date,Theme")] Conference conference)
+        public ActionResult Edit([Bind(Include = "ID,Name,Surname,Specialisation,Email,ApplicationUserId")] Reviewer reviewer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(conference).State = EntityState.Modified;
+                db.Entry(reviewer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(conference);
+            return View(reviewer);
         }
 
-        // GET: Conferences/Delete/5
-        [Authorize(Roles = "canEdit")]
+        // GET: Reviewers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conference conference = db.Conferences.Find(id);
-            if (conference == null)
+            Reviewer reviewer = db.Reviewers.Find(id);
+            if (reviewer == null)
             {
                 return HttpNotFound();
             }
-            return View(conference);
+            return View(reviewer);
         }
 
-        // POST: Conferences/Delete/5
-        [Authorize(Roles = "canEdit")]
+        // POST: Reviewers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Conference conference = db.Conferences.Find(id);
-            db.Conferences.Remove(conference);
+            Reviewer reviewer = db.Reviewers.Find(id);
+            db.Reviewers.Remove(reviewer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

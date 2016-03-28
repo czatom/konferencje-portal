@@ -1,4 +1,4 @@
-﻿@model Konferencja.Models.Conference
+﻿@model Konferencja.Models.Review
 
 @{
     ViewBag.Title = "Usuń";
@@ -8,23 +8,31 @@
 
 <h3>Czy napewno chcesz to usunąć?</h3>
 <div>
-    <h4>Konferencja</h4>
+    <h4>Recenzja</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.Publication.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Html.DisplayFor(model => model.Publication.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Theme)
+            @Html.DisplayNameFor(model => model.Reviewer.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Theme)
+            @Html.DisplayFor(model => model.Reviewer.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grade)
         </dd>
 
     </dl>

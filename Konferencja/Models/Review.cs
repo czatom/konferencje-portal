@@ -12,18 +12,31 @@ namespace Konferencja.Models
         A, B, C, D, F
     }
 
-    class Review
+    public class Review
     {
         public int ID { get; set; }
 
-        [Display(Name = "Grade")]
-        [DisplayFormat(NullDisplayText = "No grade")]
+        [Display(Name = "Ocena")]
+        [DisplayFormat(NullDisplayText = "Brak oceny")]
         public Grade? Grade { get; set; }
 
-
         [Required]
+        [Display(Name = "ID Recenzenta")]
         public int ReviewerID { get; set; }
 
+        [Required]
+        [Display(Name = "ID publikacji")]
+        public int PublicationID { get; set; }
+
+        [Display(Name = "Publikacja")]
+        public virtual Publication Publication { get; set; }
+
+        [Display(Name = "Recenzent")]
         public virtual Reviewer Reviewer { get; set; }
+
+        public bool HasGrade()
+        {
+            return Grade.HasValue;
+        }
     }
 }
