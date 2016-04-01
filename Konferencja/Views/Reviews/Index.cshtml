@@ -4,15 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Indeks</h2>
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Stwórz nowy element", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Publication.Title)
+            @Html.DisplayNameFor(model => model.Publication.ApplicationUserId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Reviewer.Name)
@@ -20,13 +20,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Grade)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Token)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Publication.Title)
+            @Html.DisplayFor(modelItem => item.Publication.ApplicationUserId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Reviewer.Name)
@@ -35,9 +41,15 @@
             @Html.DisplayFor(modelItem => item.Grade)
         </td>
         <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Token)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

@@ -24,6 +24,7 @@ namespace Konferencja.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         ApplicationUserId = c.String(nullable: false, maxLength: 128),
                         ConferenceID = c.Int(nullable: false),
+                        Accepted = c.Boolean(nullable: false),
                         Title = c.String(nullable: false, maxLength: 200),
                         Description = c.String(maxLength: 500),
                         File = c.String(nullable: false),
@@ -103,6 +104,8 @@ namespace Konferencja.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Grade = c.Int(),
+                        Description = c.String(nullable: false, maxLength: 1000),
+                        Token = c.Guid(nullable: false, identity: true),
                         ReviewerID = c.Int(nullable: false),
                         PublicationID = c.Int(nullable: false),
                     })

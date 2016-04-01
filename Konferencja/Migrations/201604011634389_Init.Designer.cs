@@ -13,7 +13,7 @@ namespace Konferencja.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201603281242022_Init"; }
+            get { return "201604011634389_Init"; }
         }
         
         string IMigrationMetadata.Source

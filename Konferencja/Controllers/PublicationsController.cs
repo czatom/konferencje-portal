@@ -135,6 +135,17 @@ namespace Konferencja.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Publications/Manage
+        public ActionResult Manage()
+        {
+            ManagePublicationsViewModel model = new ManagePublicationsViewModel
+            {
+                PendingPublications = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0).ToList(),
+                PublicationsWithoutReviews = db.Publications.Where(p => !p.Accepted && p.Reviews.Count == 0).ToList()
+            };
+            return View(model);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -19,6 +19,9 @@ namespace Konferencja.Models
         [Display(Name = "ID konferencji")]
         public int ConferenceID { get; set; }
 
+        [Display(Name = "Akceptacja")]
+        public bool Accepted { get; set; }
+
         [Required]
         [StringLength(200, MinimumLength = 10, ErrorMessage = "Tytuł nie może być dłuższy niż 200 znaków i krótszy niż 10.")]
         [Display(Name = "Tytuł")]
@@ -40,5 +43,18 @@ namespace Konferencja.Models
 
         [Display(Name = "Recenzje")]
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public bool HasReviews
+        {
+            get { return Reviews.Count > 0; }
+        }
+
+        public bool HasIncompleteReviews
+        {
+            get
+            {
+                return Reviews.Where(r=>!r.HasGrade).Count() > 0;
+            }
+        }
     }
 }

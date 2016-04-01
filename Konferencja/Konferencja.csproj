@@ -206,9 +206,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603281242022_Init.cs" />
-    <Compile Include="Migrations\201603281242022_Init.Designer.cs">
-      <DependentUpon>201603281242022_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201604011634389_Init.cs" />
+    <Compile Include="Migrations\201604011634389_Init.Designer.cs">
+      <DependentUpon>201604011634389_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,6 +218,7 @@
     <Compile Include="Models\Publication.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Reviewer.cs" />
+    <Compile Include="Models\ConferenceViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -235,6 +236,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\Konferencja - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Konferencja - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -304,6 +306,8 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Reviews\ReviewersEdit.cshtml" />
+    <Content Include="Views\Publications\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,8 +324,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603281242022_Init.resx">
-      <DependentUpon>201603281242022_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604011634389_Init.resx">
+      <DependentUpon>201604011634389_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

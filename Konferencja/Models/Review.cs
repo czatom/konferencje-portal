@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,23 @@ namespace Konferencja.Models
 
     public class Review
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Display(Name = "Ocena")]
         [DisplayFormat(NullDisplayText = "Brak oceny")]
+
         public Grade? Grade { get; set; }
+
+        [Required]
+        [Display(Name = "Opis")]
+        [StringLength(1000, ErrorMessage = "Opis nie może być dłuższy niż 1000 znaków.")]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid? Token { get; set; }
 
         [Required]
         [Display(Name = "ID Recenzenta")]
@@ -34,9 +47,11 @@ namespace Konferencja.Models
         [Display(Name = "Recenzent")]
         public virtual Reviewer Reviewer { get; set; }
 
-        public bool HasGrade()
+
+        public bool HasGrade
         {
-            return Grade.HasValue;
+            get { return Grade.HasValue; }
+                
         }
     }
 }
