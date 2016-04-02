@@ -63,6 +63,8 @@
                 }
             }
 
+            context.SaveChanges();
+
             //Reviewers
             for (int i = 0; i < 30; i++)
             {
@@ -77,6 +79,8 @@
                 context.Reviewers.AddOrUpdate(r => r.Email, reviewer);
             }
 
+            context.SaveChanges();
+
             //Conferences
             var conferences = new List<Conference>
             {
@@ -88,6 +92,8 @@
             };
 
             conferences.ForEach(a => context.Conferences.AddOrUpdate(c => c.Theme, a));
+
+            context.SaveChanges();
 
             //Publications
             var publications = new List<Publication>
@@ -170,6 +176,8 @@
                 }
                 throw;
             }
+
+            context.SaveChanges();
 
             //Reviews
             var reviews = new List<Review>
@@ -267,7 +275,7 @@
 
             reviews.ForEach(r => context.Reviews.AddOrUpdate(e => e.Description, r));
 
-            //context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }
