@@ -1,58 +1,39 @@
 ﻿@model Konferencja.Models.Reviewer
 
 @{
-    ViewBag.Title = "Szczegóły";
+    ViewBag.Title = "Details";
 }
 
-<h2>Szczegóły</h2>
+<h2>Details</h2>
 
 <div>
-    <h4>Recenzent</h4>
+    <h4>Reviewer</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialisation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Specialisation)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>
-
-    </dl>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-sm-6 col-md-4">
+                        <img src="@Model.Photo" alt="" class="img-rounded img-responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h4>
+                            @Html.DisplayFor(model => model.FullName)
+                        </h4>
+                        <small>
+                            <cite>
+                                <i class="glyphicon glyphicon-book"></i> @Html.DisplayFor(model => model.Specialisation)
+                            </cite>
+                        </small>
+                        <p>
+                            <i class="glyphicon glyphicon-envelope"></i> @Html.DisplayFor(model => model.Email)
+                            <br />
+                            <i class="glyphicon glyphicon-pencil"></i> Recenzje: @Html.DisplayFor(model => model.Reviews.Count)
+                        </p>
+                        <p>Referencje: <br />@Html.DisplayFor(model => model.References)</p>
+                    </div>
+        </div>
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Powrót do listy", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

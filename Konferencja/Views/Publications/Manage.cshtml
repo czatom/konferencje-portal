@@ -6,102 +6,121 @@
 
 <h2>Zarządzaj publikacjami</h2>
 
-<h4>Publikacje bez recenzji</h4>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Publikacje bez recenzji</h3>
+    </div>
+        @if (Model.PublicationsWithoutReviews.Count == 0)
+        {
+            <div class="panel-body">
+                <p class="alert alert-info" role="alert">Brak publikacji bez recenzji</p>
+            </div>
+        }
+        else
+        { 
+                <table class="table table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Konferencja")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Użytkownik")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Tytuł")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Opis")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Plik")
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.PublicationsWithoutReviews)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Conference.Theme)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Pobierz", null, null, null, new { href = item.File })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+                </table>
+        }
+</div>
 <hr />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Konferencja")
-        </th>
-        <th>
-            @Html.DisplayName("Użytkownik")
-        </th>
-        <th>
-            @Html.DisplayName("Tytuł")
-        </th>
-        <th>
-            @Html.DisplayName("Opis")
-        </th>
-        <th>
-            @Html.DisplayName("Plik")
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Publikacje oczekujące na akceptację</h3>
+    </div>
+        @if (Model.PendingPublications.Count == 0)
+        {
+            <div class="panel-body">
+                <p class="alert alert-info" role="alert">Brak publikacji oczekujących na akceptację</p>
+            </div>
+        }
+        else
+        {
+                <table class="table table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Konferencja")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Użytkownik")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Tytuł")
+                        </th>
+                        <th></th>
+                    </tr>
 
-    @foreach (var item in Model.PublicationsWithoutReviews)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conference.Theme)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.File)
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
+                    @foreach (var item in Model.PendingPublications)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Conference.Theme)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @if (User.IsInRole("canEdit"))
+                                {
+                                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) <text>|</text>
+                                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) <text>|</text>
+                                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                                }
+                                @if (User.IsInRole("canPublish"))
+                                {
+                                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) <text>|</text>
+                                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
+                                }
+                            </td>
+                        </tr>
+                    }
 
-</table>
-<hr />
-<h4>Publikacje oczekujuące na akceptację</h4>
-<hr />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Konferencja")
-        </th>
-        <th>
-            @Html.DisplayName("Użytkownik")
-        </th>
-        <th>
-            @Html.DisplayName("Tytuł")
-        </th>
-        <th>
-            @Html.DisplayName("Opis")
-        </th>
-        <th>
-            @Html.DisplayName("Plik")
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.PendingPublications)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conference.Theme)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.File)
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
-
-</table>
+                </table>
+        }
+</div>

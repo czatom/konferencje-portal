@@ -17,7 +17,8 @@ namespace Konferencja.Controllers
         // GET: Reviewers
         public ActionResult Index()
         {
-            return View(db.Reviewers.ToList());
+            var reviewers = db.Reviewers.Include(r => r.ApplicationUser);
+            return View(reviewers.ToList());
         }
 
         // GET: Reviewers/Details/5
@@ -38,6 +39,7 @@ namespace Konferencja.Controllers
         // GET: Reviewers/Create
         public ActionResult Create()
         {
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserName", -1);
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace Konferencja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Surname,Specialisation,Email,ApplicationUserId")] Reviewer reviewer)
+        public ActionResult Create([Bind(Include = "ID,Name,Surname,Specialisation,Email,Photo,References,ApplicationUserId")] Reviewer reviewer)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace Konferencja.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserName", reviewer.ApplicationUserId);
             return View(reviewer);
         }
 
@@ -70,6 +73,7 @@ namespace Konferencja.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserName", reviewer.ApplicationUserId);
             return View(reviewer);
         }
 
@@ -78,7 +82,7 @@ namespace Konferencja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Surname,Specialisation,Email,ApplicationUserId")] Reviewer reviewer)
+        public ActionResult Edit([Bind(Include = "ID,Name,Surname,Specialisation,Email,Photo,References,ApplicationUserId")] Reviewer reviewer)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace Konferencja.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserName", reviewer.ApplicationUserId);
             return View(reviewer);
         }
 

@@ -33,7 +33,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => pub.File)
+                    @Html.ActionLink("Pobierz", null, null, null, new { href = pub.File })
                 </dd>
 
             </dl>

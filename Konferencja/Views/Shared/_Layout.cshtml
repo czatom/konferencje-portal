@@ -33,6 +33,26 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                    <li class="dropdown">
+                        @if (User.IsInRole("canPublish"))
+                        {
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Moje publikacje <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Status publikacji", "Manage", "Publications")</li>
+                                    <li>@Html.ActionLink("Lista publikacji", "Manage", "Publications")</li>
+                                </ul>
+                        }
+                        else if (User.IsInRole("canEdit"))
+                        {
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Zarządzaj <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Statusem publikacji", "Manage", "Publications")</li>
+                                    <li>@Html.ActionLink("Konferencjami", "Index", "Conferences")</li>
+                                    <li>@Html.ActionLink("Publikacjami", "Index", "Publications")</li>
+                                    <li>@Html.ActionLink("Recenzentami", "Index", "Reviewers")</li>
+                                </ul>
+                        }
+                    </li>
                     <li>@Html.ActionLink("O platformie", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
@@ -44,7 +64,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Grupa 6</p>
         </footer>
     </div>
 

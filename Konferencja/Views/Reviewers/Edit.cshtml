@@ -1,18 +1,17 @@
 ﻿@model Konferencja.Models.Reviewer
 
 @{
-    ViewBag.Title = "Edycja";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Edytuj</h2>
-
+<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Recenzent</h4>
+        <h4>Reviewer</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
@@ -50,9 +49,25 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ApplicationUserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ApplicationUserId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Photo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.References, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.References, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.References, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApplicationUserId, "ApplicationUserId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ApplicationUserId", null, "--Wybierz użytkownika--", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ApplicationUserId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,9 +81,5 @@
 }
 
 <div>
-    @Html.ActionLink("Powrót do listy", "Index")
+    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

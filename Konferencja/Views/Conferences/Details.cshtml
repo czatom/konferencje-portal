@@ -9,34 +9,65 @@
 <div>
     <h4>Konferencja</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Theme)
-        </dt>
+    <div class="list-group">
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Kiedy rozpoczyna się konferencja?</h4>
+            <p class="list-group-item-text">@Html.DisplayFor(model => model.Date)</p>
+        </a>
 
-        <dd>
-            @Html.DisplayFor(model => model.Theme)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Publications)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AcceptedPublications, "PublicationTemplate")
-        </dd>
-
-    </dl>
+        <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">Co jest tematem konferencji ?</h4>
+            <p class="list-group-item-text">@Html.DisplayFor(model => model.Theme)</p>
+        </a>
+        <h4 class="list-group-item-heading" style="margin-top:10px; margin-bottom:10px">Jakie publikacje zostaną przedstawione?</h4>
+        <p class="list-group-item-text">
+            @if (Model.AcceptedPublications.Count == 0)
+            {
+                <h4>Brak publikcji do wyświetlenia</h4>
+            }
+            else
+            {
+                foreach (var pub in Model.AcceptedPublications)
+                {
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Autor</td>
+                                <td>@Html.DisplayFor(model => pub.ApplicationUser.FullName)</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>@Html.DisplayFor(model => pub.ApplicationUser.Email)</td>
+                            </tr>
+                            <tr>
+                                <td>Tytuł publikacji</td>
+                                <td>@Html.DisplayFor(model => pub.Title)</td>
+                            </tr>
+                            <tr>
+                                <td>Opis publikacji</td>
+                                <td>@Html.DisplayFor(model => pub.Description)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr class="style-one">
+                }
+            }
+        </p>
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Powrót do listy", "Index")
+    @if (User.IsInRole("canEdit"))
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) <text>|</text>
+    }
+    @if (Request.UrlReferrer != null)
+    {
+        @Html.ActionLink("Powrót do listy", null, null, null, new { href = Request.UrlReferrer })
+    }
+    else
+    {
+        @Html.ActionLink("Powrót do listy", "Index")
+    }
 </p>

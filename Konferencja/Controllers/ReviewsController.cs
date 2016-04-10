@@ -39,7 +39,7 @@ namespace Konferencja.Controllers
         // GET: Reviews/Create
         public ActionResult Create()
         {
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "ApplicationUserId");
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title");
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName");
             return View();
         }
@@ -58,7 +58,7 @@ namespace Konferencja.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "ApplicationUserId", review.PublicationID);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName", review.ReviewerID);
             return View(review);
         }
@@ -75,7 +75,7 @@ namespace Konferencja.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "ApplicationUserId", review.PublicationID);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName", review.ReviewerID);
             return View(review);
         }
@@ -93,7 +93,7 @@ namespace Konferencja.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "ApplicationUserId", review.PublicationID);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName", review.ReviewerID);
             return View(review);
         }
@@ -128,7 +128,7 @@ namespace Konferencja.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "ApplicationUserId", review.PublicationID);
+            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName", review.ReviewerID);
             return View(review);
         }

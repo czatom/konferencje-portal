@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace Konferencja.Models
 
         [StringLength(500, ErrorMessage = "Opis nie może być dłuższy niż 500 znaków.")]
         [Display(Name = "Opis")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required]
@@ -46,14 +48,17 @@ namespace Konferencja.Models
 
         public bool HasReviews
         {
-            get { return Reviews.Count > 0; }
+            get
+            {
+                return Reviews!=null && Reviews.Count > 0;
+            }
         }
 
         public bool HasIncompleteReviews
         {
             get
             {
-                return Reviews.Where(r=>!r.HasGrade).Count() > 0;
+                return Reviews != null && Reviews.Where(r=>!r.HasGrade).Count() > 0;
             }
         }
     }

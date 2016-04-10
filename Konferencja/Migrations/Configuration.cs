@@ -74,6 +74,7 @@
                     Surname = _surnames[ran.Next(0, _surnames.Count() - 1)],
                     Email = string.Format("conference_reviewer{0}@sharklasers.com", i + 1),
                     Specialisation = _specialisations[ran.Next(0, _specialisations.Count() - 1)],
+                    References = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."
                 };
 
                 context.Reviewers.AddOrUpdate(r => r.Email, reviewer);

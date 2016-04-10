@@ -9,6 +9,10 @@ namespace Konferencja.Models
 {
     public class Reviewer
     {
+        public Reviewer()
+        {
+            Photo = "/Content/Images/person.png";
+        }
         public int ID { get; set; }
 
         [Required]
@@ -27,6 +31,13 @@ namespace Konferencja.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        [Display(Name = "Fotografia")]
+        public string Photo { get; set; }
+
+        [Display(Name = "Referencje")]
+        [DataType(DataType.MultilineText)]
+        [StringLength(500, ErrorMessage = "Referencje nie mogą być któtsze niż 50 i dłuższe niż 500 znaków.", MinimumLength =50)]
+        public string References { get; set; }
 
         [Display(Name = "Imię i nazwisko")]
         public string FullName

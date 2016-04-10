@@ -9,13 +9,13 @@
 <p>
     @Html.ActionLink("Stwórz nowy element", "Create")
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Conference.Theme)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
+            @Html.DisplayNameFor(model => model.ApplicationUser)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.File)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accepted)
+        </th>
         <th></th>
     </tr>
 
@@ -35,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Conference.Theme)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUserId)
+            @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -44,8 +47,18 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.File)
+            @Html.ActionLink("Pobierz", null, null, null, new { href = item.File })
         </td>
+        <td>
+            @if (item.Accepted)
+            {
+                <span class="label label-success">Tak</span>
+            }
+            else
+            {
+                <span class="label label-warning">Nie</span>
+            }
+            </td>
         <td>
             @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |

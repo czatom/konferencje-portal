@@ -5,14 +5,25 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Konferencje</h1>
+    <p class="lead">
+        Najbliższa konferencja zatytułowana <i>"@Model.First().Theme"</i> już niebawem @Model.First().Date.ToShortDateString()<br />
+        Jeśli jesteś autorem ciekawej publikacji w temacie konferencji, to zapraszamy do zgłaszania swoich prac na stronie.
+    </p>
+    <p>@Html.ActionLink("Zobacz szczegóły", "Details", "Conferences", new { id = Model.First().ID }, new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+<div class="bs-callout bs-callout-primary">
+    <h4>Informacje dla nowych użytkowników</h4>
+    <p>
+        Aby dodać publikację do konferencji należy założyć konto w serwisie. Jeśli nie masz jeszcze konta kliknij @Html.ActionLink("tutaj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }), aby przejśc do formularza rejestracyjnego.</p>
 </div>
 
-<div>
-    <h3>Najbliższe konferencje:</h3>
-    <table class="table">
+<div class="panel panel-primary">
+    <div class="panel-heading"><h4>Najbliższe konferencje</h4></div>
+    <div class="panel-body">
+        <p>Poniżej znajduje się lista konferencji, które będziemy przeprowadzać w najbliższej przyszłości. Kliknij "Szczegóły", aby zobaczyć pełną listę zatwierdzonych publikacji, które pojawią się w ramach zjazdu.</p>
+    </div>
+    <table class="table table-hover">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
@@ -20,17 +31,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.Theme)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publications)
+            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
-        {
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Theme)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publications.Count)
                 </td>
                 <td>
                     @Html.ActionLink("Szczegóły", "Details", "Conferences", new { id = item.ID }, null) |
@@ -40,4 +57,37 @@
         }
 
     </table>
+</div>
+<h4>Nasi recenzenci</h4>
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="/Content/Images/person.png" alt="Recenzent">
+            <div class="caption">
+                <h3>Janusz Nieradka</h3>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p>@Html.ActionLink("Profil", "Details", "Reviewers", new { id = 1 }, new { @class="btn btn-primary" })</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="~/Content/Images/person.png" alt="Recenzent">
+            <div class="caption">
+                <h3>Michał Celiński</h3>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p>@Html.ActionLink("Profil", "Details", "Reviewers", new { id = 2 }, new { @class = "btn btn-primary" })</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="~/Content/Images/person.png" alt="Recenzent">
+            <div class="caption">
+                <h3>Sławomir Antosik</h3>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p>@Html.ActionLink("Profil", "Details", "Reviewers", new { id = 3 }, new { @class = "btn btn-primary" })</p>
+            </div>
+        </div>
+    </div>
 </div>
