@@ -26,6 +26,10 @@
 
         protected override void Seed(Konferencja.Models.ApplicationDbContext context)
         {
+            Random ran = new Random();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
             //Roles
             var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!context.Roles.Any(e => e.Name == "canEdit"))
@@ -35,10 +39,28 @@
             if (!context.Roles.Any(e => e.Name == "canPublish"))
                 rm.Create(new IdentityRole("canPublish"));
 
+            //Admin
+            var admin = new ApplicationUser
+            {
+                UserName = "conference_admin@sharklasers.com",
+                PhoneNumber = ran.Next(100000000, 999999999).ToString(),
+                PhoneNumberConfirmed = true,
+                Name = _names[ran.Next(0, _names.Count() - 1)],
+                Surname = _surnames[ran.Next(0, _surnames.Count() - 1)],
+                City = "Kraków",
+                Address = String.Format("Ul. Nieznana {0}", 100),
+                PostalCode = "30-340",
+                Email = "conference_admin@sharklasers.com",
+                EmailConfirmed = true
+            };
+
+            IdentityResult res = userManager.Create(admin, "Password@123");
+            if (res.Succeeded)
+                userManager.AddToRole(admin.Id, "canEdit");
+
+            context.SaveChanges();
+
             //Users
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            Random ran = new Random();
             for (int i = 0; i < 100; i++)
             {
                 string email = string.Format("conference_user{0}@sharklasers.com", i + 1);
@@ -101,7 +123,7 @@
             {
                 new Publication
                 {
-                    ApplicationUserId = context.Users.OrderBy(c => Guid.NewGuid()).FirstOrDefault().Id,
+                    ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 1",
                     Description = "Opis publikacji",
@@ -111,7 +133,7 @@
 
                 new Publication
                 {
-                    ApplicationUserId = context.Users.OrderBy(c => Guid.NewGuid()).FirstOrDefault().Id,
+                    ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 2",
                     Description = "Opis publikacji",
@@ -153,7 +175,27 @@
                     Title = "Tytuł publikacji 6",
                     Description = "Opis publikacji",
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
+                },
+
+                new Publication
+                {
+                    ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
+                    ConferenceID =  5,
+                    Title = "Tytuł publikacji 7",
+                    Description = "Opis publikacji",
+                    File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
+                },
+
+                new Publication
+                {
+                    ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
+                    ConferenceID =  5,
+                    Title = "Tytuł publikacji 8",
+                    Description = "Opis publikacji",
+                    File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 }
+
+
             };
 
             try
@@ -188,14 +230,14 @@
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 1",
                     Grade = Grade.A,
-                    PublicationID = 1,
+                    PublicationID = 1
                 },
 
                 new Review()
                 {
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 2",
-                    PublicationID = 1,
+                    PublicationID = 1
                 },
 
                 new Review()
@@ -203,14 +245,14 @@
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 3",
                     Grade = Grade.B,
-                    PublicationID = 2,
+                    PublicationID = 2
                 },
 
                 new Review()
                 {
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 4",
-                    PublicationID = 2,
+                    PublicationID = 2
                 },
 
                 new Review()
@@ -218,14 +260,14 @@
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 5",
                     Grade = Grade.F,
-                    PublicationID = 3,
+                    PublicationID = 3
                 },
 
                 new Review()
                 {
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 6",
-                    PublicationID = 3,
+                    PublicationID = 3
                 },
 
                 new Review()
@@ -233,14 +275,14 @@
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 7",
                     Grade = Grade.A,
-                    PublicationID = 4,
+                    PublicationID = 4
                 },
 
                 new Review()
                 {
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 8",
-                    PublicationID = 4,
+                    PublicationID = 4
                 },
 
                new Review()
@@ -248,14 +290,14 @@
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 9",
                     Grade = Grade.C,
-                    PublicationID = 4,
+                    PublicationID = 4
                 },
 
                 new Review()
                 {
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 10",
-                    PublicationID = 5,
+                    PublicationID = 5
                 },
 
                 new Review()
@@ -270,8 +312,22 @@
                 {
                     ReviewerID = ran.Next(1, 30),
                     Description = "Jakiś opis 12",
-                    PublicationID = 5,
+                    PublicationID = 5
                 },
+
+                new Review()
+                {
+                    ReviewerID = ran.Next(1, 30),
+                    Description = "Jakiś opis 13",
+                    PublicationID = context.Publications.Where(p=>p.Title == "Tytuł publikacji 7").First().ID
+                },
+
+                new Review()
+                {
+                    ReviewerID = ran.Next(1, 30),
+                    Description = "Jakiś opis 14",
+                    PublicationID = context.Publications.Where(p=>p.Title == "Tytuł publikacji 7").First().ID
+                }
             };
 
             reviews.ForEach(r => context.Reviews.AddOrUpdate(e => e.Description, r));

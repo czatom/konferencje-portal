@@ -102,11 +102,62 @@ background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
 hr.style-eight {
 height: 10px;
 width: 50%;
-border: 1;
+border: 1px;
 box-shadow: inset 0 9px 9px -3px rgba(11, 99, 184, 0.8);
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 -ms-border-radius: 5px;
 -o-border-radius: 5px;
 border-radius: 5px;
+}
+
+.post
+{
+    background-color: #FFF;
+    overflow: hidden;
+    box-shadow: 0 0 1px #CCC;
+}
+
+.post .content
+{
+    padding: 15px;
+}
+.post .author
+{
+    font-size: 11px;
+    color: #737373;
+    padding: 25px 30px 20px;
+}
+.post .post-img-content
+{
+    height: 196px;
+    position: relative;
+}
+.post .post-img-content img
+{
+    position: absolute;
+}
+.post .post-title
+{
+    display: table-cell;
+    vertical-align: bottom;
+    z-index: 2;
+    position: relative;
+}
+.post .post-title b
+{
+    background-color: rgba(51, 51, 51, 0.58);
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #FFF;
+    padding: 10px 15px;
+    margin-top: 5px;
+}
+
+.msgbox
+{
+    display: inline-block;
+    margin-bottom: 5px;
+    padding: 10px 15px;
+    margin-top: 5px;
 }

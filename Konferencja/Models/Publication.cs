@@ -24,7 +24,7 @@ namespace Konferencja.Models
         public bool Accepted { get; set; }
 
         [Required]
-        [StringLength(200, MinimumLength = 10, ErrorMessage = "Tytuł nie może być dłuższy niż 200 znaków i krótszy niż 10.")]
+        [StringLength(200, MinimumLength = 10, ErrorMessage = "Tytuł nie może być krótszy niż 10 i dłuższy niż 200.")]
         [Display(Name = "Tytuł")]
         public string Title { get; set; }
 

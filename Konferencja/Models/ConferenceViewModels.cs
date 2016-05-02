@@ -9,11 +9,19 @@ namespace Konferencja.Models
 {
     public class ManagePublicationsViewModel
     {
-        [Display(Name = "Publikacje bez recenzji")]
+        [Display(Name = "Publikacje bez wyznaczonych recenzji")]
         public ICollection<Publication> PublicationsWithoutReviews { get; set; }
+
+        [Display(Name = "Publikacje bez ocenionych recenzji")]
+        public ICollection<Publication> PublicationsWithoutAssessment { get; set; }
 
         [Display(Name = "Publikacje oczekujące na akceptację")]
         public ICollection<Publication> PendingPublications{ get; set; }
 
+        [Display(Name = "Odrzucone publikacje")]
+        public ICollection<Publication> RejectedPublications { get; set; }
+
+        [Display(Name = "Zaakceptowane publikacje")]
+        public ICollection<Publication> AcceptedPublications { get; set; }
     }
 }

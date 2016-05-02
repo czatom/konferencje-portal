@@ -16,9 +16,23 @@ namespace Konferencja.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Publications
+        [Authorize(Roles = "canPublish,  canEdit")]
         public ActionResult Index()
         {
-            var publications = db.Publications.Include(p => p.Conference);
+            IQueryable<Publication> publications;
+            if (User.IsInRole("canEdit"))
+            {
+                publications = db.Publications.Include(p => p.Conference);
+            }
+            else if (User.IsInRole("canPublish"))
+            {
+                string id = User.Identity.GetUserId();
+                publications = db.Publications.Where(p => p.ApplicationUser.Id == id).Include(p => p.Conference);
+            }
+            else
+            {
+                return new HttpUnauthorizedResult("Nie masz uprawnień do przeglądania tej strony");
+            }
             return View(publications.ToList());
         }
 
@@ -48,7 +62,7 @@ namespace Konferencja.Controllers
         // GET: Publications/Create
 
         [ActionName("CreateForConference")]
-        [Authorize(Roles = "canPublish")]
+        [Authorize(Roles = "canPublish,  canEdit")]
         public ActionResult Create(int conferenceID)
         {
             ViewBag.ConferenceID = new SelectList(db.Conferences, "ID", "Theme", conferenceID);
@@ -60,7 +74,7 @@ namespace Konferencja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canPublish")]
+        [Authorize(Roles = "canPublish, canEdit")]
         public ActionResult Create([Bind(Include = "ID,ConferenceID,Title,Description,File", Exclude ="ApplicationUserId")] Publication publication)
         {
             ModelState.Remove("ApplicationUserId");
@@ -110,6 +124,7 @@ namespace Konferencja.Controllers
         }
 
         // GET: Publications/Delete/5
+        [Authorize(Roles = "canEdit")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,6 +142,7 @@ namespace Konferencja.Controllers
         // POST: Publications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "canEdit")]
         public ActionResult DeleteConfirmed(int id)
         {
             Publication publication = db.Publications.Find(id);
@@ -136,13 +152,38 @@ namespace Konferencja.Controllers
         }
 
         // GET: Publications/Manage
+        [Authorize(Roles = "canEdit, canPublish")]
         public ActionResult Manage()
         {
-            ManagePublicationsViewModel model = new ManagePublicationsViewModel
+            ManagePublicationsViewModel model;
+            if (User.IsInRole("canEdit"))
             {
-                PendingPublications = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0).ToList(),
-                PublicationsWithoutReviews = db.Publications.Where(p => !p.Accepted && p.Reviews.Count == 0).ToList()
-            };
+                model = new ManagePublicationsViewModel
+                {
+                    PendingPublications = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0).ToList(),
+                    PublicationsWithoutReviews = db.Publications.Where(p => !p.Accepted && p.Reviews.Count == 0).ToList(),
+                    AcceptedPublications = db.Publications.Where(p => p.Accepted).ToList(),
+                    PublicationsWithoutAssessment = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0).ToList(),
+                    RejectedPublications = db.Publications.Where(p => !p.Accepted && p.Conference.Date <= DateTime.Now).ToList()
+                    
+                };
+            }
+            else if (User.IsInRole("canPublish"))
+            {
+                string id = User.Identity.GetUserId();
+                model = new ManagePublicationsViewModel
+                {
+                    PendingPublications = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0 && p.ApplicationUserId == id).ToList(),
+                    PublicationsWithoutReviews = db.Publications.Where(p => !p.Accepted && p.Reviews.Count == 0 && p.ApplicationUserId == id).ToList(),
+                    AcceptedPublications = db.Publications.Where(p => p.Accepted && p.ApplicationUserId == id).ToList(),
+                    PublicationsWithoutAssessment = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0 && p.ApplicationUserId == id).ToList(),
+                    RejectedPublications = db.Publications.Where(p => !p.Accepted && p.Conference.Date <= DateTime.Now && p.ApplicationUserId == id).ToList()
+                };
+            }
+            else
+            {
+                return new HttpUnauthorizedResult("Nie masz uprawnień do przeglądania tej strony");
+            }
             return View(model);
         }
 
