@@ -12,19 +12,16 @@
 <table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Publication.ApplicationUserId)
+            @Html.DisplayName("Tytuł publikacji")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Reviewer.Name)
+            @Html.DisplayName("Autor publikacji")
+        </th>
+        <th>
+            @Html.DisplayName("Recenzent")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Grade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Token)
         </th>
         <th></th>
     </tr>
@@ -32,19 +29,41 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Publication.ApplicationUserId)
+            @Html.DisplayFor(modelItem => item.Publication.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Reviewer.Name)
+            @Html.DisplayFor(modelItem => item.Publication.ApplicationUser.FullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Grade)
+            @Html.DisplayFor(modelItem => item.Reviewer.FullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Token)
+            @if (item.HasGrade)
+            {
+                switch (item.Grade)
+                {
+                    case Konferencja.Models.Grade.A:
+                        <button type="button" class="btn btn-success btn-sm btn-round"><b>A</b></button>
+                        break;
+                    case Konferencja.Models.Grade.B:
+                        <button type="button" class="btn btn-success btn-sm btn-round"><b>B</b></button>
+                        break;
+                    case Konferencja.Models.Grade.C:
+                        <button type="button" class="btn btn-warning btn-sm btn-round"><b>C</b></button>
+                        break;
+                    case Konferencja.Models.Grade.D:
+                        <button type="button" class="btn btn-danger btn-sm btn-round"><b>D</b></button>
+                        break;
+                    case Konferencja.Models.Grade.F:
+                        <button type="button" class="btn btn-danger btn-sm btn-round"><b>E</b></button>
+                        break;
+                }
+            }
+            else
+            {
+                @*@Html.DisplayFor(modelItem => item.Grade)*@
+                <button type="button" class="btn btn-default btn-sm btn-round" data-toggle="popover" data-placement="right" data-content="Publikacja w tej recenzji nie ma jeszcze wystawionej oceny."><b>?</b></button>
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
@@ -55,3 +74,11 @@
 }
 
 </table>
+@section scripts{
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+}
+
