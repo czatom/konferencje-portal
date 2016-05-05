@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Name)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -29,17 +26,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Photo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.References)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.Name)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -53,10 +44,10 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Photo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.References)
+            @if (!string.IsNullOrEmpty(item.Photo))
+            {
+                <img src="..@item.Photo" alt="@item.FullName" width="50" />
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

@@ -24,6 +24,7 @@ namespace Konferencja.Models
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
+        [Display(Name = "Specjalizacja")]
         public string Specialisation { get; set; }
 
         [Required]
