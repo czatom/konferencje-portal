@@ -1,0 +1,1 @@
+﻿Jeśli publikacja nie ma przyznajego statusu 2 tygodnie przed konferencją, to z automatu zostaje odrzucona(?) 

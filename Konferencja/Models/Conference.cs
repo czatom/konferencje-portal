@@ -34,7 +34,7 @@ namespace Konferencja.Models
             get
             {
                 if (Publications != null)
-                    return Publications.Where(n => !n.Accepted).ToList();
+                    return Publications.Where(n => n.Status == Status.NoAction).ToList();
                 else return new List<Publication>();
             }
         }
@@ -45,7 +45,18 @@ namespace Konferencja.Models
             get
             {
                 if (Publications != null)
-                    return Publications.Where(n => n.Accepted).ToList();
+                    return Publications.Where(n => n.Status == Status.Accepted).ToList();
+                else return new List<Publication>();
+            }
+        }
+
+        [NotMapped]
+        public List<Publication>RejectedPublications
+        {
+            get
+            {
+                if (Publications != null)
+                    return Publications.Where(n => n.Status == Status.Rejected).ToList();
                 else return new List<Publication>();
             }
         }

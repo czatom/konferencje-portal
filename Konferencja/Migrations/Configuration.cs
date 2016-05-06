@@ -127,7 +127,7 @@
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 1",
                     Description = "Opis publikacji",
-                    Accepted = true,
+                    Status = Status.Accepted,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html",
                 },
 
@@ -137,7 +137,7 @@
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 2",
                     Description = "Opis publikacji",
-                    Accepted = true,
+                    Status = Status.Accepted,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
 

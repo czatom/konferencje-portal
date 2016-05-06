@@ -160,11 +160,11 @@ namespace Konferencja.Controllers
             {
                 model = new ManagePublicationsViewModel
                 {
-                    PendingPublications = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0).ToList(),
-                    PublicationsWithoutReviews = db.Publications.Where(p => !p.Accepted && p.Reviews.Count == 0).ToList(),
-                    AcceptedPublications = db.Publications.Where(p => p.Accepted).ToList(),
-                    PublicationsWithoutAssessment = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0).ToList(),
-                    RejectedPublications = db.Publications.Where(p => !p.Accepted && p.Conference.Date <= DateTime.Now).ToList()
+                    PendingPublications = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0).ToList(),
+                    PublicationsWithoutReviews = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Count == 0).ToList(),
+                    AcceptedPublications = db.Publications.Where(p => p.Status == Status.Accepted).ToList(),
+                    PublicationsWithoutAssessment = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0).ToList(),
+                    RejectedPublications = db.Publications.Where(p => p.Status == Status.Rejected).ToList()
                     
                 };
             }
@@ -173,11 +173,11 @@ namespace Konferencja.Controllers
                 string id = User.Identity.GetUserId();
                 model = new ManagePublicationsViewModel
                 {
-                    PendingPublications = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0 && p.ApplicationUserId == id).ToList(),
-                    PublicationsWithoutReviews = db.Publications.Where(p => !p.Accepted && p.Reviews.Count == 0 && p.ApplicationUserId == id).ToList(),
-                    AcceptedPublications = db.Publications.Where(p => p.Accepted && p.ApplicationUserId == id).ToList(),
-                    PublicationsWithoutAssessment = db.Publications.Where(p => !p.Accepted && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0 && p.ApplicationUserId == id).ToList(),
-                    RejectedPublications = db.Publications.Where(p => !p.Accepted && p.Conference.Date <= DateTime.Now && p.ApplicationUserId == id).ToList()
+                    PendingPublications = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Where(r => r.Grade.HasValue).Count() > 0 && p.ApplicationUserId == id).ToList(),
+                    PublicationsWithoutReviews = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Count == 0 && p.ApplicationUserId == id).ToList(),
+                    AcceptedPublications = db.Publications.Where(p => p.Status == Status.Accepted && p.ApplicationUserId == id).ToList(),
+                    PublicationsWithoutAssessment = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0 && p.ApplicationUserId == id).ToList(),
+                    RejectedPublications = db.Publications.Where(p => p.Status == Status.Rejected && p.Conference.Date <= DateTime.Now && p.ApplicationUserId == id).ToList()
                 };
             }
             else

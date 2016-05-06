@@ -27,7 +27,7 @@
             @Html.DisplayNameFor(model => model.File)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Accepted)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th></th>
     </tr>
@@ -50,15 +50,19 @@
             @Html.ActionLink("Pobierz", null, null, null, new { href = item.File })
         </td>
         <td>
-            @if (item.Accepted)
+            @if (item.Status == Konferencja.Models.Status.Accepted)
             {
-                <span class="label label-success">Tak</span>
+                <span class="label label-success">Akceptacja</span>
+            }
+            else if (item.Status == Konferencja.Models.Status.Rejected)
+            {
+                <span class="label label-warning">Odrzucenie</span>
             }
             else
             {
-                <span class="label label-warning">Nie</span>
+                <span class="label label-info">Oczekiwanie</span>
             }
-            </td>
+        </td>
         <td>
             @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |

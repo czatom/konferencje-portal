@@ -8,8 +8,22 @@ using System.Threading.Tasks;
 
 namespace Konferencja.Models
 {
+    public enum Status
+    {
+        [Display(Name = "Brak akcji")]
+        NoAction,
+        [Display(Name = "Odrzucona")]
+        Rejected,
+        [Display(Name = "Zaakceptowana")]
+        Accepted 
+    }
     public class Publication
     {
+        public Publication()
+        {
+            this.Status = Status.NoAction;
+        }
+
         public int ID { get; set; }
 
         [Required]
@@ -20,8 +34,8 @@ namespace Konferencja.Models
         [Display(Name = "ID konferencji")]
         public int ConferenceID { get; set; }
 
-        [Display(Name = "Akceptacja")]
-        public bool Accepted { get; set; }
+        [Display(Name = "Status")]
+        public Status Status { get; set; }
 
         [Required]
         [StringLength(200, MinimumLength = 10, ErrorMessage = "Tytuł nie może być krótszy niż 10 i dłuższy niż 200.")]
