@@ -11,19 +11,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Publication.ApplicationUserId)
+            @Html.DisplayName("Publikacja")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Publication.ApplicationUserId)
+            @Html.DisplayFor(model => model.Publication.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Reviewer.Name)
+            @Html.DisplayName("Autor publikacji")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Reviewer.Name)
+            @Html.DisplayFor(model => model.Publication.ApplicationUser.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Opis publikacji")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publication.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Recenzent")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reviewer.FullName)
         </dd>
 
         <dt>

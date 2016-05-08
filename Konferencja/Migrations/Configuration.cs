@@ -118,6 +118,8 @@
 
             context.SaveChanges();
 
+            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
             //Publications
             var publications = new List<Publication>
             {
@@ -126,7 +128,7 @@
                     ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 1",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     Status = Status.Accepted,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html",
                 },
@@ -136,7 +138,7 @@
                     ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 2",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     Status = Status.Accepted,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
@@ -146,7 +148,7 @@
                     ApplicationUserId = context.Users.OrderBy(c => Guid.NewGuid()).FirstOrDefault().Id,
                     ConferenceID =  4,
                     Title = "Tytuł publikacji 3",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
 
@@ -155,7 +157,7 @@
                     ApplicationUserId = context.Users.OrderBy(c => Guid.NewGuid()).FirstOrDefault().Id,
                     ConferenceID =  5,
                     Title = "Tytuł publikacji 4",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
 
@@ -164,7 +166,7 @@
                     ApplicationUserId = context.Users.OrderBy(c => Guid.NewGuid()).FirstOrDefault().Id,
                     ConferenceID =  5,
                     Title = "Tytuł publikacji 5",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
 
@@ -173,7 +175,7 @@
                     ApplicationUserId = context.Users.OrderBy(c => Guid.NewGuid()).FirstOrDefault().Id,
                     ConferenceID =  5,
                     Title = "Tytuł publikacji 6",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
 
@@ -182,7 +184,7 @@
                     ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
                     ConferenceID =  5,
                     Title = "Tytuł publikacji 7",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 },
 
@@ -191,11 +193,9 @@
                     ApplicationUserId = context.Users.Where(u=>u.Email == "conference_user1@sharklasers.com").First().Id,
                     ConferenceID =  5,
                     Title = "Tytuł publikacji 8",
-                    Description = "Opis publikacji",
+                    Description = lorem,
                     File = @"http://scigen.csail.mit.edu/scicache/613/scimakelatex.4090.Janusz+Zabek.Krzysztof+Komeda.html"
                 }
-
-
             };
 
             try
@@ -330,7 +330,7 @@
                 }
             };
 
-            reviews.ForEach(r => context.Reviews.AddOrUpdate(e => e.Description, r));
+            reviews.ForEach(r => context.Reviews.AddOrUpdate(e => e.ID, r));
 
             context.SaveChanges();
         }

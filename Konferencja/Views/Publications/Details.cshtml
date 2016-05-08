@@ -1,17 +1,18 @@
 ﻿@model Konferencja.Models.Publication
 
 @{
-    ViewBag.Title = "Szczegóły";
+    ViewBag.Title = "Szczegóły publikacji";
+    int index = 1;
 }
 
-<h2>Szczegóły</h2>
+<h2>Szczegóły publikacji</h2>
 
 <div>
     <h4>Publikacja</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Conference.Theme)
+            @Html.DisplayName("Konferencja")
         </dt>
 
         <dd>
@@ -43,11 +44,71 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @if (Model.Status == Konferencja.Models.Status.Accepted)
+            {
+                <span class="label label-success">Akceptacja</span>
+            }
+            else if (Model.Status == Konferencja.Models.Status.Rejected)
+            {
+                <span class="label label-warning">Odrzucenie</span>
+            }
+            else
+            {
+                <span class="label label-info">Oczekiwanie</span>
+            }
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.File)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.File)
+            @Html.ActionLink(Model.File, null, null, null, new { href = Model.File })
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Liczba recenzji")
+        </dt>
+
+        <dd>
+            @if (Model.HasReviews)
+            {
+                @Html.DisplayFor(model => model.Reviews.Count)
+            }
+            else
+            {
+                @Html.DisplayName("brak recenzji")
+            }
+        </dd>
+        <dt>
+            @Html.DisplayName("Recenzje:")
+        </dt>
+        <dd>
+            <div class="panel-group" id="accordion">
+            @foreach (Konferencja.Models.Review rev in Model.Reviews)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_@index">
+                                Recenzja @index |   Autor: @rev.Reviewer.FullName   |   Ocena: @Html.DisplayFor(item => rev.Grade)
+                                <span class="expand-icon-wrap"><i class="fa expand-icon"></i></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse_@index" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            @rev.Description
+                        </div>
+                    </div>
+                </div>
+                index++;
+            }
+            </div> 
         </dd>
     </dl>
 </div>
