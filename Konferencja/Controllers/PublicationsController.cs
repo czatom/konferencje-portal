@@ -75,7 +75,7 @@ namespace Konferencja.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "canPublish, canEdit")]
-        public ActionResult Create([Bind(Include = "ID,ConferenceID,Title,Description,File", Exclude ="ApplicationUserId")] Publication publication)
+        public ActionResult Create([Bind(Include = "ID,ConferenceID,Title,Description,File", Exclude = "ApplicationUserId")] Publication publication)
         {
             ModelState.Remove("ApplicationUserId");
             if (ModelState.IsValid)
@@ -111,7 +111,7 @@ namespace Konferencja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ApplicationUserId,ConferenceID,Title,Description,File")] Publication publication)
+        public ActionResult Edit([Bind(Include = "ID,ApplicationUserId,ConferenceID,Title,Description,File,Status")] Publication publication)
         {
             if (ModelState.IsValid)
             {
@@ -165,7 +165,7 @@ namespace Konferencja.Controllers
                     AcceptedPublications = db.Publications.Where(p => p.Status == Status.Accepted).ToList(),
                     PublicationsWithoutAssessment = db.Publications.Where(p => p.Status == Status.NoAction && p.Reviews.Where(r => !r.Grade.HasValue).Count() > 0).ToList(),
                     RejectedPublications = db.Publications.Where(p => p.Status == Status.Rejected).ToList()
-                    
+
                 };
             }
             else if (User.IsInRole("canPublish"))

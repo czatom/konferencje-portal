@@ -22,10 +22,16 @@ namespace Konferencja
             );
 
             routes.MapRoute(
-    name: "Publication",
-    url: "Publications/Create/{conferenceID:int}",
-    defaults: new { controller = "Publications", action = "Create", id = UrlParameter.Optional }
-);
+                name: "Publication",
+                url: "Publications/Create/{conferenceID:int}",
+                defaults: new { controller = "Publications", action = "Create", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Review",
+                url: "Reviews/Create/{publicationID:int}",
+                defaults: new { controller = "Reviews", action = "Create", id = UrlParameter.Optional }
+            );
         }
     }
 }
