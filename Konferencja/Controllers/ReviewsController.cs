@@ -64,6 +64,7 @@ namespace Konferencja.Controllers
             {
                 db.Reviews.Add(review);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

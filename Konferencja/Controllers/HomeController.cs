@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +15,21 @@ namespace Konferencja.Controllers
 
         public ActionResult Index()
         {
+            using (MailMessage mm = new MailMessage("subiektywny.brud@gmail.com", "conference_admin@sharklasers.com"))
+            {
+                mm.Subject = "temat";
+                mm.Body = "test";
+                mm.IsBodyHtml = false;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("subiektywny.brud@gmail.com", "esperanza84");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                //await smtp.SendMailAsync(mm);
+                smtp.Send(mm);  
+            }
             return View(db.Conferences.Where(c=>c.Date >= DateTime.Now).ToList());
         }
 

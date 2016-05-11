@@ -1,17 +1,17 @@
 ﻿@model Konferencja.Models.Reviewer
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edycja danych recenzenta";
 }
 
-<h2>Edit</h2>
+<h2>Edycja</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Reviewer</h4>
+        <h4>Recenzent</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
@@ -74,12 +74,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Zapisz zmiany" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy", "Index")
 </div>

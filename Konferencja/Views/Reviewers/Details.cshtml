@@ -1,13 +1,13 @@
 ﻿@model Konferencja.Models.Reviewer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegółowe dane recenzenta";
 }
 
-<h2>Details</h2>
+<h2>Szczegóły</h2>
 
 <div>
-    <h4>Reviewer</h4>
+    <h4>Recenzent</h4>
     <hr />
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -34,6 +34,6 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Powrót do listy", "Index")
 </p>

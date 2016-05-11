@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Konferencja.Models.Reviewer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista recenzentów";
 }
 
-<h2>Index</h2>
+<h2>Lista recenzentów</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowego recenzenta", "Create")
 </p>
 <table class="table">
     <tr>
@@ -50,9 +50,9 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edycja", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.ID })
         </td>
     </tr>
 }
