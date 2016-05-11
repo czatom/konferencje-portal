@@ -24,7 +24,7 @@ namespace Konferencja.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         ApplicationUserId = c.String(nullable: false, maxLength: 128),
                         ConferenceID = c.Int(nullable: false),
-                        Status = c.Int(nullable: false),
+                        Accepted = c.Boolean(nullable: false),
                         Title = c.String(nullable: false, maxLength: 200),
                         Description = c.String(maxLength: 500),
                         File = c.String(nullable: false),
@@ -124,8 +124,6 @@ namespace Konferencja.Migrations
                         Surname = c.String(nullable: false),
                         Specialisation = c.String(),
                         Email = c.String(nullable: false),
-                        Photo = c.String(),
-                        References = c.String(maxLength: 500),
                         ApplicationUserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.ID)

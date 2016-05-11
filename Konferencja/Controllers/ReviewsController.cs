@@ -44,15 +44,6 @@ namespace Konferencja.Controllers
             return View();
         }
 
-        [ActionName("CreateForPublication")]
-        [Authorize(Roles = "canPublish,  canEdit")]
-        public ActionResult Create(int publicationID)
-        {
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", publicationID);
-            ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName");
-            return View("Create");
-        }
-
         // POST: Reviews/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
