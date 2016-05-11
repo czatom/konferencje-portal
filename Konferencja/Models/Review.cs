@@ -15,6 +15,11 @@ namespace Konferencja.Models
 
     public class Review
     {
+        public Review()
+        {
+            //this.Description = "Wprowadź uzasadnienie dla oceny...";
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }

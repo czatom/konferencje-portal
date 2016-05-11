@@ -1,18 +1,18 @@
 ﻿@model Konferencja.Models.Review
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tworzenie recenzji";
 }
 
-<h2>Create</h2>
+<h2>Stwórz recenzję</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Reviews", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Review</h4>
+        <h4>Recenzja</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -26,7 +26,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Podsumowanie i uzasadnienie oceny" } })
+                @*@Html.TextArea("Description", "-----", new { @class="form-control text-box multi-line", @data_val="true", @data_val_length="Opis nie może być dłuższy niż 1000 znaków.", data_val_length_max="1000", data_val_required="Pole Opis jest wymagane.", id="Description"})*@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,14 +50,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Stwórz" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy", "Index")
 </div>
 
 @section Scripts {

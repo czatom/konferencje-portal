@@ -111,7 +111,7 @@ namespace Konferencja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ApplicationUserId,ConferenceID,Title,Description,File")] Publication publication)
+        public ActionResult Edit([Bind(Include = "ID,ApplicationUserId,ConferenceID,Title,Description,File,Status")] Publication publication)
         {
             if (ModelState.IsValid)
             {
