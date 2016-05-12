@@ -117,6 +117,16 @@ namespace Konferencja.Controllers
             {
                 db.Entry(publication).State = EntityState.Modified;
                 db.SaveChanges();
+                //TODO uzależnić treść maila od statusu
+                string body = "<p>Witaj {0}</p><br>" +
+                "<p>Zmienił się status publikacji {1}. " +
+                "<p>Aby zobaczyć status publikacji wejdź na naszą stronę.</p><br>" +
+                "<p>Pozdrawiamy</p><br>" +
+                "<p>Zespół konferencje.azurewesites.net</p>";
+                string msg = string.Format(body, publication.ApplicationUser.FullName,
+                    publication.Title);
+                Mail.Send("konferencje.agh@gmail.com", publication.ApplicationUser.Email, "Zmiana statusu publikacji", true, msg);
+
                 return RedirectToAction("Index");
             }
             ViewBag.ConferenceID = new SelectList(db.Conferences, "ID", "Theme", publication.ConferenceID);

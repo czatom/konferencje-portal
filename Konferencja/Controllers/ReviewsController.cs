@@ -65,6 +65,21 @@ namespace Konferencja.Controllers
                 db.Reviews.Add(review);
                 db.SaveChanges();
 
+                var reviewer = db.Reviewers.Find(review.ReviewerID);
+                var pub = db.Publications.Find(review.PublicationID);
+
+                string body = "<p>Witaj {0}</p><br>" + 
+                    "<p>Przesyłamy do recenzji publikację zatytułowaną {1}. " +
+                    "Publikacja dostępna jest pod adresem <a href=\"{2}\">tutaj</a>.</p><br>" +
+                    "<p>Aby edytować recenzję i wystawić ocenę wejdź <a href=\"{3}/Reviews/ReviewersEdit?token={4}\">tutaj</a>.</p><br>" + 
+                    "<p>Pozdrawiamy</p><br>" + 
+                    "<p>Zespół konferencje.azurewesites.net</p>";
+                string msg = string.Format(body, reviewer.FullName, 
+                    pub.Title,
+                    pub.File,
+                    Request.Url.Host, review.Token);
+                Mail.Send("konferencje.agh@gmail.com", reviewer.Email, "Prośba o recenzję", true, msg);
+
                 return RedirectToAction("Index");
             }
 
@@ -108,7 +123,7 @@ namespace Konferencja.Controllers
             return View(review);
         }
 
-        // GET: Reviews/ReviewersEdit/ED93A579-05F8-E511-BBA1-001A7DDA7108
+        // GET: Reviews/ReviewersEdit?token=ED93A579-05F8-E511-BBA1-001A7DDA7108
         public ActionResult ReviewersEdit(Guid? token)
         {
             if (token == null)
@@ -136,6 +151,18 @@ namespace Konferencja.Controllers
             {
                 db.Entry(review).State = EntityState.Modified;
                 db.SaveChanges();
+
+                var pub = db.Publications.Find(review.PublicationID);
+                var user = db.Users.Find(pub.ApplicationUserId);
+                string body = "<p>Witaj {0}</p><br>" +
+                "<p>Pojawiła się recenzja publikacji {1}. " +
+                "<p>Aby zobaczyć status publikacji wejdź na naszą stronę.</p><br>" +
+                "<p>Pozdrawiamy</p><br>" +
+                "<p>Zespół konferencje.azurewesites.net</p>";
+                string msg = string.Format(body, user.FullName,
+                    pub.Title);
+                Mail.Send("konferencje.agh@gmail.com", user.Email, "Recenzja publikacji", true, msg);
+
                 return RedirectToAction("Index");
             }
             ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
