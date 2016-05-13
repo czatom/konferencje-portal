@@ -14,10 +14,22 @@ namespace Konferencja.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Reviews
-        public ActionResult Index()
+        // GET:
+        public ActionResult Index(string sortOrder)
         {
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "pub_title_desc" : "";
+
             var reviews = db.Reviews.Include(r => r.Publication).Include(r => r.Reviewer);
+
+            switch (sortOrder)
+            {
+                case "pub_title_desc":
+                    reviews = reviews.OrderByDescending(r => r.Publication.Title);
+                    break;
+                default:
+                    reviews = reviews.OrderBy(r => r.Publication.Title);
+                    break;
+            }
             return View(reviews.ToList());
         }
 
@@ -39,7 +51,7 @@ namespace Konferencja.Controllers
         // GET: Reviews/Create
         public ActionResult Create()
         {
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title");
+            ViewBag.PublicationID = new SelectList(db.Publications.Where(p => p.Status == Status.NoAction), "ID", "Title");
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName");
             return View();
         }
@@ -48,7 +60,7 @@ namespace Konferencja.Controllers
         [Authorize(Roles = "canPublish,  canEdit")]
         public ActionResult Create(int publicationID)
         {
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", publicationID);
+            ViewBag.PublicationID = new SelectList(db.Publications.Where(p => p.Status == Status.NoAction), "ID", "Title", publicationID);
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName");
             return View("Create");
         }
@@ -83,7 +95,7 @@ namespace Konferencja.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PublicationID = new SelectList(db.Publications, "ID", "Title", review.PublicationID);
+            ViewBag.PublicationID = new SelectList(db.Publications.Where(p => p.Status == Status.NoAction), "ID", "Title", review.PublicationID);
             ViewBag.ReviewerID = new SelectList(db.Reviewers, "ID", "FullName", review.ReviewerID);
             return View(review);
         }

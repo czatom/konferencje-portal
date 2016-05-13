@@ -12,9 +12,10 @@
 <table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayName("Tytuł publikacji")
+            @Html.ActionLink("Tytuł publikacji", "Index", new { sortOrder = ViewBag.TitleSortParm })
         </th>
         <th>
+            @*@Html.ActionLink("Autor publikacji", "Index", new { sortOrder = ViewBag.AuthorSortParm })*@
             @Html.DisplayName("Autor publikacji")
         </th>
         <th>

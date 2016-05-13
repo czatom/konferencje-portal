@@ -95,7 +95,13 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse_@index">
-                                Recenzja @index |   Autor: @rev.Reviewer.FullName   |   Ocena: @Html.DisplayFor(item => rev.Grade)
+                                Recenzja @index |
+                                @if (User.IsInRole("canEdit"))
+                                {
+                                    @:Autor: @rev.Reviewer.FullName
+                                    @:| 
+                                }
+                                Ocena: @Html.DisplayFor(item => rev.Grade)
                                 <span class="expand-icon-wrap"><i class="fa expand-icon"></i></span>
                             </a>
                         </h4>

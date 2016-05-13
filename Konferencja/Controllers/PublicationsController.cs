@@ -123,7 +123,8 @@ namespace Konferencja.Controllers
                 "<p>Aby zobaczyć status publikacji wejdź na naszą stronę.</p><br>" +
                 "<p>Pozdrawiamy</p><br>" +
                 "<p>Zespół konferencje.azurewesites.net</p>";
-                string msg = string.Format(body, publication.ApplicationUser.FullName,
+                var appUser = db.Users.Find(publication.ApplicationUserId);
+                string msg = string.Format(body, appUser.FullName,
                     publication.Title);
                 Mail.Send("konferencje.agh@gmail.com", publication.ApplicationUser.Email, "Zmiana statusu publikacji", true, msg);
 
