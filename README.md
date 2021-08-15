@@ -1,1 +1,1 @@
-Portal do zarządzania konferencjami - dodawanie wydarzeń, rejestracja uczestników z weryfikacją po email. Pisany pod ASP.NET MVC. Projekt na studia podyplomowe z metod wytwarzania oprogramowania, dlatego ekstramalnie prosty i bez wodotrysków.
+Portal do zarządzania konferencjami - dodawanie wydarzeń, rejestracja uczestników z weryfikacją po email. Pisany pod ASP.NET MVC. Projekt na studia podyplomowe z metod wytwarzania oprogramowania, dlatego jest ekstremalnie prosty i bez wodotrysków.
